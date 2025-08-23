@@ -10,21 +10,26 @@ BikeDAO is the first fully decentralized bike-sharing platform where:
 - **DAO Governance**: Community votes on platform decisions and fund allocation
 - **Tokenized Incentives**: Users earn RIDE tokens for positive actions
 - **Decentralized Maintenance**: Local mechanics earn tokens for bike maintenance
+- **Multi-Chain Support**: Works with Ethereum/Polygon AND Stacks blockchain
 
 ## 🏗️ Architecture
 
 ### Core Components
 
-1. **Smart Contracts** (Solidity)
-   - `RideToken.sol` - Utility token for platform operations
-   - `BikeDAOToken.sol` - Governance token for DAO voting
-   - `BikeNFT.sol` - NFT representation of physical bikes
-   - `BikeSharing.sol` - Main ride management contract
-   - `MaintenanceManager.sol` - Decentralized maintenance system
-   - `BikeDAO.sol` - DAO governance and treasury management
+1. **Smart Contracts** (Solidity + Clarity)
+   - **Ethereum/Polygon**: Full platform functionality
+     - `RideToken.sol` - Utility token for platform operations
+     - `BikeDAOToken.sol` - Governance token for DAO voting
+     - `BikeNFT.sol` - NFT representation of physical bikes
+     - `BikeSharing.sol` - Main ride management contract
+     - `MaintenanceManager.sol` - Decentralized maintenance system
+     - `BikeDAO.sol` - DAO governance and treasury management
+   - **Stacks**: Clarity smart contracts for STX integration
+     - `bike-token.clar` - RIDE token on Stacks
 
 2. **Frontend dApp** (React + Web3)
-   - Wallet integration (MetaMask, WalletConnect)
+   - **MetaMask Integration**: For Ethereum/Polygon networks
+   - **Leather Wallet Integration**: For Stacks blockchain
    - Interactive map for bike discovery
    - Ride management interface
    - Maintenance job marketplace
@@ -40,7 +45,9 @@ BikeDAO is the first fully decentralized bike-sharing platform where:
 
 - Node.js 16+ and npm
 - Git
-- MetaMask browser extension
+- **One of these wallets:**
+  - **MetaMask** (for Ethereum/Polygon) - [metamask.io](https://metamask.io/)
+  - **Leather Wallet** (for Stacks/Bitcoin) - [leather.io](https://leather.io/)
 - MongoDB (for Oracle service)
 - Redis (optional, for caching)
 
@@ -92,9 +99,13 @@ cd frontend
 # Create .env file for any frontend-specific variables
 ```
 
-### 4. Deploy Smart Contracts
+### 4. Choose Your Blockchain & Wallet
 
-#### Local Development
+#### Option A: Ethereum/Polygon with MetaMask
+
+##### Deploy Smart Contracts
+
+**Local Development**
 ```bash
 # Start local Hardhat node
 cd contracts
@@ -104,37 +115,115 @@ npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-#### Polygon Mumbai Testnet
+**Polygon Mumbai Testnet**
 ```bash
 cd contracts
 npx hardhat run scripts/deploy.js --network mumbai
 ```
 
-#### Polygon Mainnet
+##### Setup MetaMask
+1. Install MetaMask browser extension
+2. Add Polygon network:
+   - Network Name: Polygon Mumbai
+   - RPC URL: https://rpc-mumbai.maticvigil.com
+   - Chain ID: 80001
+   - Currency Symbol: MATIC
+
+#### Option B: Stacks with Leather Wallet
+
+##### Install Leather Wallet
+1. Go to [leather.io](https://leather.io/)
+2. Download and install the browser extension
+3. Create a new wallet or import existing one
+4. Get testnet STX from [Stacks faucet](https://explorer.stacks.co/sandbox/faucet)
+
+##### Deploy Stacks Contracts
 ```bash
-cd contracts
-npx hardhat run scripts/deploy.js --network polygon
+# Install Clarinet (Stacks development tool)
+npm install -g @hirosystems/clarinet-cli
+
+# Initialize Stacks project
+cd stacks-contracts
+clarinet new bike-dao-stacks
+cd bike-dao-stacks
+
+# Copy our contracts
+cp ../bike-token.clar contracts/
 ```
 
-### 5. Start the Oracle Service
+### 5. Start the Services
 
 ```bash
+# Backend Oracle (Terminal 1)
 cd backend
 npm run dev
-```
 
-### 6. Start the Frontend
-
-```bash
+# Frontend dApp (Terminal 2)
 cd frontend
 npm start
 ```
 
 The dApp will be available at `http://localhost:3000`
 
+## 🔄 Switching Between Wallets
+
+### From MetaMask to Leather Wallet
+
+1. **Install Leather Wallet**: Download from [leather.io](https://leather.io/)
+
+2. **Update Frontend**: The platform now supports both wallets simultaneously:
+   - MetaMask button appears for Ethereum/Polygon
+   - Leather button appears for Stacks blockchain
+
+3. **Connect Leather Wallet**:
+   - Click "Connect Leather" button
+   - Authorize the connection in Leather wallet
+   - You'll see your STX address and balance
+
+### Wallet Comparison
+
+| Feature | MetaMask (Ethereum/Polygon) | Leather (Stacks/Bitcoin) |
+|---------|----------------------------|-------------------------|
+| **Networks** | Ethereum, Polygon, BSC, etc. | Stacks, Bitcoin |
+| **Tokens** | ERC-20, ERC-721 | SIP-10, SIP-09 |
+| **Smart Contracts** | Solidity | Clarity |
+| **Gas Fees** | ETH, MATIC | STX |
+| **DeFi Ecosystem** | Massive | Growing |
+| **Bitcoin Integration** | Limited | Native |
+
+## 🚀 Running with Leather Wallet
+
+### 1. Install Dependencies (if not done already)
+
+```bash
+cd frontend
+npm install
+```
+
+### 2. Start the Frontend
+
+```bash
+cd frontend
+npm start
+```
+
+### 3. Connect Leather Wallet
+
+1. Open `http://localhost:3000`
+2. Look for the orange "Connect Leather" button (positioned below the blue MetaMask button)
+3. Click "Connect Leather"
+4. If Leather isn't installed, you'll see installation instructions
+5. Authorize the connection in Leather wallet
+
+### 4. Use Stacks Features
+
+- View your STX balance
+- Interact with Clarity smart contracts (coming soon)
+- Send/receive tokens on Stacks network
+
 ## 🔧 Development Workflow
 
-### Smart Contract Development
+### For Ethereum/Polygon Development
 
 ```bash
 cd contracts
@@ -147,9 +236,21 @@ npm run test
 
 # Deploy locally
 npm run deploy:local
+```
 
-# Verify on Polygonscan
-npm run verify
+### For Stacks Development
+
+```bash
+cd stacks-contracts
+
+# Check contract syntax
+clarinet check
+
+# Run tests
+clarinet test
+
+# Deploy to testnet
+clarinet deploy --testnet
 ```
 
 ### Frontend Development
@@ -160,175 +261,88 @@ cd frontend
 # Start development server
 npm start
 
-# Build for production
-npm run build
-
-# Run tests
-npm test
+# Test both wallet integrations
+# - Connect MetaMask for Ethereum features
+# - Connect Leather for Stacks features
 ```
 
-### Backend Development
+## 📖 Using Both Wallets
 
-```bash
-cd backend
+### Dual Wallet Setup
 
-# Start with auto-reload
-npm run dev
+You can now use BOTH wallets simultaneously:
 
-# Run tests
-npm test
+1. **MetaMask**: For the main bike-sharing functionality on Ethereum/Polygon
+2. **Leather**: For additional features on Stacks/Bitcoin
 
-# Start production server
-npm start
-```
+### Recommended Workflow
 
-## 📖 Usage Guide
+1. **Primary Operations** (MetaMask):
+   - Rent bikes
+   - Pay with RIDE tokens
+   - Participate in DAO governance
+   - Maintenance jobs
 
-### For Riders
+2. **Secondary Features** (Leather):
+   - STX token management
+   - Bitcoin-secured transactions
+   - Cross-chain features (future)
 
-1. **Connect Wallet**: Use MetaMask or WalletConnect
-2. **Make Deposit**: Deposit RIDE tokens as security
-3. **Find a Bike**: Use the map to locate available bikes
-4. **Start Ride**: Scan QR code or select bike from map
-5. **End Ride**: Lock bike at destination
-6. **Earn Rewards**: Get RIDE tokens for good behavior
+## 🛡️ Security Considerations
 
-### For Maintainers
-
-1. **Browse Jobs**: View available maintenance tasks
-2. **Claim Job**: Stake tokens to claim a maintenance job
-3. **Complete Work**: Perform repairs and submit proof
-4. **Get Paid**: Receive tokens after validation
-
-### For DAO Members
-
-1. **Get Governance Tokens**: Acquire BIKEDAO tokens
-2. **Create Proposals**: Submit governance proposals
-3. **Vote**: Participate in community decisions
-4. **Earn Rewards**: Receive revenue share from platform
-
-## 🧪 Testing
-
-### Smart Contract Tests
-
-```bash
-cd contracts
-npm run test
-
-# With coverage
-npm run coverage
-
-# Gas reporting
-REPORT_GAS=true npm run test
-```
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm test
-
-# Coverage
-npm test -- --coverage
-```
-
-### Backend Tests
-
-```bash
-cd backend
-npm test
-
-# Watch mode
-npm run test:watch
-```
-
-## 🚀 Deployment
-
-### Smart Contracts
-
-1. Configure `.env` with deployment wallet and RPC URLs
-2. Fund deployment wallet with native tokens (ETH/MATIC)
-3. Run deployment script for target network
-4. Verify contracts on block explorer
-5. Update frontend with deployed addresses
-
-### Frontend (Vercel/Netlify)
-
-1. Build the frontend: `npm run build`
-2. Deploy `build` folder to hosting service
-3. Configure environment variables
-4. Set up domain and SSL
-
-### Backend (Railway/Heroku)
-
-1. Configure production environment variables
-2. Set up MongoDB and Redis instances
-3. Deploy using platform-specific methods
-4. Monitor logs and performance
-
-## 🔐 Security Considerations
-
-- **Smart Contracts**: All contracts should be audited before mainnet deployment
-- **Private Keys**: Never commit private keys or seed phrases
-- **Oracle Security**: Use secure communication channels for IoT devices
-- **Rate Limiting**: Implement API rate limiting in production
-- **Access Control**: Proper role-based access control throughout
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Never share private keys** or seed phrases
+- **Use hardware wallets** for large amounts
+- **Test on testnets** before mainnet
+- **Keep wallets updated** to latest versions
+- **Verify contract addresses** before interacting
 
 ## 🆘 Troubleshooting
 
-### Common Issues
+### Leather Wallet Issues
 
-**Contract deployment fails**
-- Check wallet has sufficient balance for gas
-- Verify RPC URL is correct and accessible
-- Ensure private key is valid
+**"Leather wallet not detected"**
+- Download from [leather.io](https://leather.io/)
+- Refresh the page after installation
+- Check browser extensions are enabled
 
-**Frontend can't connect to contracts**
-- Verify contract addresses in frontend config
-- Check network configuration matches deployment
-- Ensure MetaMask is on correct network
+**"Failed to connect to Leather"**
+- Make sure Leather is unlocked
+- Try refreshing the page
+- Check if you're on the correct Stacks network
 
-**Oracle service errors**
-- Check database connectivity
-- Verify blockchain RPC connection
-- Ensure environment variables are set
+**"STX balance not showing"**
+- Wait a few seconds for balance to load
+- Check you're connected to the right network
+- Verify you have STX in your wallet
 
-### Getting Help
+### MetaMask + Leather Conflicts
 
-- Check existing [Issues](link-to-issues)
-- Join our [Discord](link-to-discord)
-- Read the [Documentation](link-to-docs)
+If both wallets are installed:
+- They work independently
+- No conflicts expected
+- Use the appropriate wallet for each blockchain
 
 ## 🔗 Links
 
-- **Website**: [bikedao.org](https://bikedao.org)
-- **Docs**: [docs.bikedao.org](https://docs.bikedao.org)
-- **Twitter**: [@BikeDAO](https://twitter.com/BikeDAO)
-- **Discord**: [BikeDAO Community](https://discord.gg/bikedao)
+- **MetaMask**: [metamask.io](https://metamask.io/)
+- **Leather Wallet**: [leather.io](https://leather.io/)
+- **Stacks**: [stacks.co](https://stacks.co/)
+- **Polygon**: [polygon.technology](https://polygon.technology/)
 
 ## 📊 Project Status
 
-- ✅ Smart Contract Development
-- ✅ Frontend dApp
+- ✅ Smart Contract Development (Ethereum/Polygon)
+- ✅ Smart Contract Development (Stacks/Clarity)
+- ✅ Frontend dApp with MetaMask
+- ✅ Frontend dApp with Leather Wallet
 - ✅ Oracle Service
 - ✅ Local Testing Environment
-- 🔄 Testnet Deployment
+- 🔄 Multi-chain Integration
+- ⏳ Cross-chain Bridge
 - ⏳ Security Audit
 - ⏳ Mainnet Launch
 
 ---
 
 Built with ❤️ by the BikeDAO community
+**Now supporting both Ethereum/Polygon AND Stacks blockchains!** 🚴‍♂️⚡

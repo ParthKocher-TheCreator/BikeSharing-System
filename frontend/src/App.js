@@ -9,6 +9,7 @@ import { loadContractAddresses } from './utils/web3';
 // Components
 import Navbar from './components/Navbar';
 import WalletConnection from './components/WalletConnection';
+import LeatherWalletConnection from './components/LeatherWalletConnection';
 
 // Pages
 import Home from './pages/Home';
@@ -81,7 +82,10 @@ function App() {
         <Router>
           <div className="App">
             <Navbar />
+            {/* Ethereum/Polygon wallet connection */}
             <WalletConnection />
+            {/* Stacks/Bitcoin wallet connection */}
+            <LeatherWalletConnection />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/map" element={<Map />} />
