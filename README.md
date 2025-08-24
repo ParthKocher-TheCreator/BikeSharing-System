@@ -1,4 +1,4 @@
-# BikeSharing System
+# 🚲 BikeSharing System
 
 ## Project Title
 **BikeSharing System** - A Decentralized Community-Owned Bike Sharing Platform
@@ -72,24 +72,282 @@ Our vision is to create a sustainable, community-driven transportation ecosystem
 
 ---
 
-## Getting Started
+## 🚀 Getting Started with Clarinet & Stacks
 
 ### Prerequisites
-- Stacks wallet (Hiro, Xverse, or similar)
-- STX tokens for deposits and fees
-- Basic understanding of blockchain transactions
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Clarinet CLI](https://docs.hiro.so/clarinet/)
+- [Stacks CLI](https://docs.stacks.co/build-apps/references/cli)
+- Basic command line knowledge
 
-### Usage Instructions
-1. **Initialize Contract**: Deploy with desired number of bikes
-2. **Rent a Bike**: Call `rent-bike` with bike ID and deposit amount
-3. **Return a Bike**: Call `return-bike` with bike ID and optional maintenance notes
-4. **Check Status**: Use read-only functions to monitor bike availability and user information
+### Installation
 
-### Community Participation
-- Report maintenance issues when returning bikes
-- Maintain bikes in good condition
-- Participate in community governance decisions
-- Help expand the bike network
+#### 1. Install Clarinet
+```bash
+# For macOS/Linux
+curl -L https://github.com/hirosystems/clarinet/releases/latest/download/clarinet-install.sh | bash
+
+# For Windows (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/hirosystems/clarinet/releases/latest/download/clarinet-install.exe" -OutFile "clarinet-install.exe"
+./clarinet-install.exe
+
+# Verify installation
+clarinet --version
+```
+
+#### 2. Install Stacks CLI
+```bash
+# For macOS/Linux
+curl -L https://github.com/hirosystems/stacks.js/releases/latest/download/stacks-cli-install.sh | bash
+
+# For Windows (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/hirosystems/stacks.js/releases/latest/download/stacks-cli-install.exe" -OutFile "stacks-cli-install.exe"
+./stacks-cli-install.exe
+
+# Verify installation
+stacks --version
+```
+
+#### 3. Install Project Dependencies
+```bash
+npm install
+```
+
+### Project Setup
+
+#### 1. Clone and Setup Project
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd bike-sharing-system
+
+# Check project configuration
+clarinet check
+```
+
+#### 2. Start Local Development Environment
+```bash
+# Start local Clarinet environment
+clarinet dev
+
+# This starts a local blockchain and dashboard
+# Keep this running in a separate terminal
+```
+
+#### 3. Test Locally
+```bash
+# Run tests
+npm test
+
+# Or use Clarinet directly
+clarinet test
+
+# Test contract functions locally
+clarinet contract call bike-sharing-system initialize --args u10
+clarinet contract call bike-sharing-system get-contract-stats
+```
+
+### Deployment
+
+#### 1. Deploy to Testnet
+```bash
+# Deploy contract to testnet
+npm run deploy:testnet
+
+# Or use Clarinet directly
+clarinet contract publish bike-sharing-system --network testnet
+
+# Initialize contract
+npm run init:testnet
+
+# Or use Clarinet directly
+clarinet contract call bike-sharing-system initialize --args u10 --network testnet
+```
+
+#### 2. Deploy to Mainnet
+```bash
+# Deploy contract to mainnet
+npm run deploy:mainnet
+
+# Initialize contract
+npm run init:mainnet
+```
+
+#### 3. Programmatic Deployment
+```bash
+# Using the deployment script
+node scripts/deploy.js testnet <your-private-key>
+node scripts/deploy.js mainnet <your-private-key>
+```
+
+### Testing
+
+#### 1. Local Testing
+```bash
+# Start local environment
+clarinet dev
+
+# In another terminal, run tests
+clarinet test
+
+# Test specific functions
+clarinet contract call bike-sharing-system initialize --args u5
+clarinet contract call bike-sharing-system get-contract-stats
+```
+
+#### 2. Testnet Testing
+```bash
+# Test on testnet
+clarinet contract call bike-sharing-system get-contract-stats --network testnet
+
+# Test bike rental
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000 --network testnet
+
+# Test bike return
+clarinet contract call bike-sharing-system return-bike --args u1 --network testnet
+```
+
+### Contract Interaction
+
+#### Available Functions
+
+**Write Functions:**
+- `initialize(initial-bike-count: uint)` - Initialize contract with bikes
+- `rent-bike(bike-id: uint, deposit-amount: uint)` - Rent a bike
+- `return-bike(bike-id: uint, maintenance-notes: optional<string-ascii 100>)` - Return a bike
+
+**Read Functions:**
+- `get-contract-stats()` - Get contract statistics
+- `get-bike-status(bike-id: uint)` - Get bike status
+- `get-user-rentals(user: principal)` - Get user's rented bikes
+- `get-user-deposit(user: principal)` - Get user's deposit
+- `get-bike-maintenance-history(bike-id: uint)` - Get bike maintenance history
+
+#### Example Usage
+```bash
+# Initialize with 10 bikes
+clarinet contract call bike-sharing-system initialize --args u10
+
+# Rent bike ID 1 with 1000 microSTX deposit
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000
+
+# Return bike ID 1
+clarinet contract call bike-sharing-system return-bike --args u1
+
+# Check contract stats
+clarinet contract call bike-sharing-system get-contract-stats
+```
+
+### Project Structure
+```
+bike-sharing-system/
+├── contracts/
+│   └── bike-sharing-system.clar    # Main contract file
+├── tests/
+│   └── bike-sharing-system_test.ts # Contract tests
+├── scripts/
+│   └── deploy.js                   # Deployment script
+├── Clarinet.toml                   # Clarinet configuration
+├── package.json                     # Node.js dependencies
+└── README.md                       # This file
+```
+
+---
+
+## 🔧 Development Workflow
+
+### 1. Local Development
+```bash
+# Start local environment
+clarinet dev
+
+# Make changes to contract
+# Test changes
+clarinet test
+
+# Check contract syntax
+clarinet check
+```
+
+### 2. Testnet Deployment
+```bash
+# Deploy to testnet
+clarinet contract publish bike-sharing-system --network testnet
+
+# Test on testnet
+clarinet contract call bike-sharing-system get-contract-stats --network testnet
+```
+
+### 3. Mainnet Deployment
+```bash
+# Deploy to mainnet
+clarinet contract publish bike-sharing-system --network mainnet
+
+# Initialize on mainnet
+clarinet contract call bike-sharing-system initialize --args u10 --network mainnet
+```
+
+---
+
+## 🚨 Common Issues & Solutions
+
+### "Clarinet command not found"
+```bash
+# Restart terminal or source profile
+source ~/.bashrc
+# or
+source ~/.zshrc
+```
+
+### "Contract not found"
+```bash
+# Check contract path in Clarinet.toml
+cat Clarinet.toml
+# Ensure path matches your contract file location
+```
+
+### "Network error"
+```bash
+# Check network configuration
+clarinet check
+# Verify network settings in Clarinet.toml
+```
+
+### "Insufficient balance"
+```bash
+# For testnet: Get STX from faucet
+# For mainnet: Ensure you have real STX
+```
+
+---
+
+## 📚 Useful Resources
+
+- [Clarinet Documentation](https://docs.hiro.so/clarinet/)
+- [Stacks Documentation](https://docs.stacks.co/)
+- [Clarity Language Reference](https://docs.stacks.co/write-smart-contracts/overview)
+- [Stacks Explorer](https://explorer.hiro.so/)
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and test thoroughly
+4. Commit your changes: `git commit -m 'Add amazing feature'`
+5. Push to the branch: `git push origin feature/amazing-feature`
+6. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**🎯 Remember**: Always test locally first, then on testnet, and only deploy to mainnet when you're 100% confident everything works correctly!
 
 ---
 
