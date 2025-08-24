@@ -1,334 +1,96 @@
-# BikeDAO - Decentralized Bike Sharing Platform
-
-A revolutionary Web3 bike-sharing platform built on blockchain technology, featuring decentralized ownership, transparent governance, and tokenized incentives.
-
-## 🚀 Overview
-
-BikeDAO is the first fully decentralized bike-sharing platform where:
-- **Community Ownership**: Bikes are owned by token holders, not corporations
-- **NFT-Based Assets**: Each bike is represented as a unique NFT with transparent history
-- **DAO Governance**: Community votes on platform decisions and fund allocation
-- **Tokenized Incentives**: Users earn RIDE tokens for positive actions
-- **Decentralized Maintenance**: Local mechanics earn tokens for bike maintenance
-
-## 🏗️ Architecture
-
-### Core Components
-
-1. **Smart Contracts** (Solidity)
-   - `RideToken.sol` - Utility token for platform operations
-   - `BikeDAOToken.sol` - Governance token for DAO voting
-   - `BikeNFT.sol` - NFT representation of physical bikes
-   - `BikeSharing.sol` - Main ride management contract
-   - `MaintenanceManager.sol` - Decentralized maintenance system
-   - `BikeDAO.sol` - DAO governance and treasury management
-
-2. **Frontend dApp** (React + Web3)
-   - Wallet integration (MetaMask, WalletConnect)
-   - Interactive map for bike discovery
-   - Ride management interface
-   - Maintenance job marketplace
-   - DAO governance dashboard
-
-3. **Oracle Service** (Node.js)
-   - IoT device communication
-   - Blockchain event listening
-   - Off-chain data management
-   - Real-time location updates
-
-## 📋 Prerequisites
-
-- Node.js 16+ and npm
-- Git
-- MetaMask browser extension
-- MongoDB (for Oracle service)
-- Redis (optional, for caching)
-
-## 🛠️ Installation & Setup
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd web3-bike-sharing
-```
-
-### 2. Install Dependencies
-
-```bash
-# Install root dependencies
-npm run setup
-
-# Or manually install each component
-cd contracts && npm install
-cd ../frontend && npm install
-cd ../backend && npm install
-```
-
-### 3. Environment Configuration
-
-#### Smart Contracts
-```bash
-cd contracts
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-Required variables:
-- `PRIVATE_KEY` - Deployment wallet private key
-- `POLYGON_RPC_URL` - Polygon network RPC endpoint
-- `POLYGONSCAN_API_KEY` - For contract verification
-
-#### Backend Oracle Service
-```bash
-cd backend
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-#### Frontend dApp
-```bash
-cd frontend
-# Create .env file for any frontend-specific variables
-```
-
-### 4. Deploy Smart Contracts
-
-#### Local Development
-```bash
-# Start local Hardhat node
-cd contracts
-npx hardhat node
-
-# In another terminal, deploy contracts
-npx hardhat run scripts/deploy.js --network localhost
-```
-
-#### Polygon Mumbai Testnet
-```bash
-cd contracts
-npx hardhat run scripts/deploy.js --network mumbai
-```
-
-#### Polygon Mainnet
-```bash
-cd contracts
-npx hardhat run scripts/deploy.js --network polygon
-```
-
-### 5. Start the Oracle Service
-
-```bash
-cd backend
-npm run dev
-```
-
-### 6. Start the Frontend
-
-```bash
-cd frontend
-npm start
-```
-
-The dApp will be available at `http://localhost:3000`
-
-## 🔧 Development Workflow
-
-### Smart Contract Development
-
-```bash
-cd contracts
-
-# Compile contracts
-npm run compile
-
-# Run tests
-npm run test
-
-# Deploy locally
-npm run deploy:local
-
-# Verify on Polygonscan
-npm run verify
-```
-
-### Frontend Development
-
-```bash
-cd frontend
-
-# Start development server
-npm start
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-```
-
-### Backend Development
-
-```bash
-cd backend
-
-# Start with auto-reload
-npm run dev
-
-# Run tests
-npm test
-
-# Start production server
-npm start
-```
-
-## 📖 Usage Guide
-
-### For Riders
-
-1. **Connect Wallet**: Use MetaMask or WalletConnect
-2. **Make Deposit**: Deposit RIDE tokens as security
-3. **Find a Bike**: Use the map to locate available bikes
-4. **Start Ride**: Scan QR code or select bike from map
-5. **End Ride**: Lock bike at destination
-6. **Earn Rewards**: Get RIDE tokens for good behavior
-
-### For Maintainers
-
-1. **Browse Jobs**: View available maintenance tasks
-2. **Claim Job**: Stake tokens to claim a maintenance job
-3. **Complete Work**: Perform repairs and submit proof
-4. **Get Paid**: Receive tokens after validation
-
-### For DAO Members
-
-1. **Get Governance Tokens**: Acquire BIKEDAO tokens
-2. **Create Proposals**: Submit governance proposals
-3. **Vote**: Participate in community decisions
-4. **Earn Rewards**: Receive revenue share from platform
-
-## 🧪 Testing
-
-### Smart Contract Tests
-
-```bash
-cd contracts
-npm run test
-
-# With coverage
-npm run coverage
-
-# Gas reporting
-REPORT_GAS=true npm run test
-```
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm test
-
-# Coverage
-npm test -- --coverage
-```
-
-### Backend Tests
-
-```bash
-cd backend
-npm test
-
-# Watch mode
-npm run test:watch
-```
-
-## 🚀 Deployment
-
-### Smart Contracts
-
-1. Configure `.env` with deployment wallet and RPC URLs
-2. Fund deployment wallet with native tokens (ETH/MATIC)
-3. Run deployment script for target network
-4. Verify contracts on block explorer
-5. Update frontend with deployed addresses
-
-### Frontend (Vercel/Netlify)
-
-1. Build the frontend: `npm run build`
-2. Deploy `build` folder to hosting service
-3. Configure environment variables
-4. Set up domain and SSL
-
-### Backend (Railway/Heroku)
-
-1. Configure production environment variables
-2. Set up MongoDB and Redis instances
-3. Deploy using platform-specific methods
-4. Monitor logs and performance
-
-## 🔐 Security Considerations
-
-- **Smart Contracts**: All contracts should be audited before mainnet deployment
-- **Private Keys**: Never commit private keys or seed phrases
-- **Oracle Security**: Use secure communication channels for IoT devices
-- **Rate Limiting**: Implement API rate limiting in production
-- **Access Control**: Proper role-based access control throughout
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-**Contract deployment fails**
-- Check wallet has sufficient balance for gas
-- Verify RPC URL is correct and accessible
-- Ensure private key is valid
-
-**Frontend can't connect to contracts**
-- Verify contract addresses in frontend config
-- Check network configuration matches deployment
-- Ensure MetaMask is on correct network
-
-**Oracle service errors**
-- Check database connectivity
-- Verify blockchain RPC connection
-- Ensure environment variables are set
-
-### Getting Help
-
-- Check existing [Issues](link-to-issues)
-- Join our [Discord](link-to-discord)
-- Read the [Documentation](link-to-docs)
-
-## 🔗 Links
-
-- **Website**: [bikedao.org](https://bikedao.org)
-- **Docs**: [docs.bikedao.org](https://docs.bikedao.org)
-- **Twitter**: [@BikeDAO](https://twitter.com/BikeDAO)
-- **Discord**: [BikeDAO Community](https://discord.gg/bikedao)
-
-## 📊 Project Status
-
-- ✅ Smart Contract Development
-- ✅ Frontend dApp
-- ✅ Oracle Service
-- ✅ Local Testing Environment
-- 🔄 Testnet Deployment
-- ⏳ Security Audit
-- ⏳ Mainnet Launch
+# BikeSharing System
+
+## Project Title
+**BikeSharing System** - A Decentralized Community-Owned Bike Sharing Platform
+
+## Project Description
+The BikeSharing System is a smart contract-based solution built on the Stacks blockchain that enables community-owned bike sharing with integrated maintenance tracking and usage incentives. This system provides a transparent, trustless way for communities to manage shared bicycle resources while ensuring proper maintenance and fair usage.
+
+### Key Features
+- **Decentralized Bike Management**: Community-owned bikes managed through smart contracts
+- **Automated Rental System**: Seamless bike rental and return process
+- **Maintenance Tracking**: Built-in maintenance history and reporting system
+- **Usage Incentives**: Fair pricing model with deposit-based security
+- **Transparent Operations**: All transactions and bike status visible on the blockchain
+
+### Core Functions
+1. **`rent-bike`**: Allows users to rent available bikes by providing a deposit
+2. **`return-bike`**: Enables users to return bikes and optionally report maintenance issues
+
+## Project Vision
+Our vision is to create a sustainable, community-driven transportation ecosystem that promotes:
+- **Environmental Sustainability**: Encouraging eco-friendly transportation options
+- **Community Ownership**: Empowering communities to manage shared resources
+- **Transparency**: Building trust through blockchain-based transparency
+- **Accessibility**: Making bike sharing accessible to everyone in the community
+- **Maintenance Excellence**: Ensuring bikes remain in optimal condition through community reporting
+
+### Long-term Goals
+- Expand to multiple communities and cities
+- Integrate with other transportation networks
+- Develop mobile applications for seamless user experience
+- Implement reward systems for regular users and maintenance reporters
+- Create governance mechanisms for community decision-making
+
+## Future Scope
+
+### Phase 2: Enhanced Features
+- **GPS Integration**: Real-time bike location tracking
+- **Smart Lock Integration**: IoT-enabled bike locks
+- **User Reputation System**: Build trust through user ratings and history
+- **Maintenance Scheduling**: Automated maintenance reminders and scheduling
+- **Insurance Integration**: Optional insurance coverage for bike damage
+
+### Phase 3: Ecosystem Expansion
+- **Multi-City Network**: Inter-city bike sharing capabilities
+- **Partner Integration**: Collaboration with local businesses and transit systems
+- **Mobile App Development**: Native iOS and Android applications
+- **Analytics Dashboard**: Community insights and usage analytics
+- **Environmental Impact Tracking**: Carbon footprint reduction metrics
+
+### Phase 4: Advanced Features
+- **AI-Powered Maintenance**: Predictive maintenance using machine learning
+- **Dynamic Pricing**: Demand-based pricing algorithms
+- **Community Governance**: DAO-style community decision making
+- **Cross-Chain Integration**: Interoperability with other blockchain networks
+- **Sustainability Rewards**: Token incentives for eco-friendly transportation choices
+
+## Contract Address Details
+*Contract deployment information will be added here after deployment*
+
+### Network Information
+- **Blockchain**: Stacks (STX)
+- **Contract Language**: Clarity
+- **Deployment Status**: Pending
+- **Contract Owner**: TBD
+
+### Technical Specifications
+- **Minimum Deposit**: 1000 microSTX per bike rental
+- **Rental Fee**: 10 microSTX per block
+- **Maximum Bike ID**: Configurable during initialization
+- **Maintenance Notes**: Up to 100 ASCII characters
 
 ---
 
-Built with ❤️ by the BikeDAO community
+## Getting Started
+
+### Prerequisites
+- Stacks wallet (Hiro, Xverse, or similar)
+- STX tokens for deposits and fees
+- Basic understanding of blockchain transactions
+
+### Usage Instructions
+1. **Initialize Contract**: Deploy with desired number of bikes
+2. **Rent a Bike**: Call `rent-bike` with bike ID and deposit amount
+3. **Return a Bike**: Call `return-bike` with bike ID and optional maintenance notes
+4. **Check Status**: Use read-only functions to monitor bike availability and user information
+
+### Community Participation
+- Report maintenance issues when returning bikes
+- Maintain bikes in good condition
+- Participate in community governance decisions
+- Help expand the bike network
+
+---
+
+*This project is open source and welcomes community contributions. Join us in building the future of sustainable transportation!*
