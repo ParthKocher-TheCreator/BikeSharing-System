@@ -1,23 +1,29 @@
 {
-  "name": "web3-bike-sharing",
+  "name": "bike-sharing-system",
   "version": "1.0.0",
-  "description": "Decentralized bike-sharing platform built on Web3 principles",
+  "description": "Community-owned bike sharing system with maintenance tracking and usage incentives",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run dev:frontend & npm run dev:backend",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "compile": "cd contracts && npx hardhat compile",
-    "test": "cd contracts && npx hardhat test",
-    "deploy:local": "cd contracts && npx hardhat run scripts/deploy.js --network localhost",
-    "deploy:polygon": "cd contracts && npx hardhat run scripts/deploy.js --network polygon",
-    "setup": "npm install && cd contracts && npm install && cd ../frontend && npm install && cd ../backend && npm install",
-    "clean": "rm -rf node_modules contracts/node_modules frontend/node_modules backend/node_modules"
+    "test": "clarinet test",
+    "check": "clarinet check",
+    "dev": "clarinet dev",
+    "deploy:testnet": "clarinet contract publish bike-sharing-system --network testnet",
+    "deploy:mainnet": "clarinet contract publish bike-sharing-system --network mainnet",
+    "init:testnet": "clarinet contract call bike-sharing-system initialize --args u10 --network testnet",
+    "init:mainnet": "clarinet contract call bike-sharing-system initialize --args u10 --network mainnet"
   },
-  "keywords": ["web3", "blockchain", "bike-sharing", "dao", "nft", "defi"],
-  "author": "Web3 Bike Sharing Team",
+  "keywords": [
+    "stacks",
+    "clarity",
+    "blockchain",
+    "bike-sharing",
+    "smart-contract"
+  ],
+  "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^7.6.0"
-  }
+    "@stacks/transactions": "^6.0.0",
+    "@stacks/network": "^6.0.0"
+  },
+  "dependencies": {}
 }

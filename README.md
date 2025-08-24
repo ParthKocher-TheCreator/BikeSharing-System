@@ -1,334 +1,304 @@
-# BikeDAO - Decentralized Bike Sharing Platform
+# 🚲 BikeSharing System
 
-A revolutionary Web3 bike-sharing platform built on blockchain technology, featuring decentralized ownership, transparent governance, and tokenized incentives.
+## Project Title & Short Description
 
-## 🚀 Overview
-
-BikeDAO is the first fully decentralized bike-sharing platform where:
-- **Community Ownership**: Bikes are owned by token holders, not corporations
-- **NFT-Based Assets**: Each bike is represented as a unique NFT with transparent history
-- **DAO Governance**: Community votes on platform decisions and fund allocation
-- **Tokenized Incentives**: Users earn RIDE tokens for positive actions
-- **Decentralized Maintenance**: Local mechanics earn tokens for bike maintenance
-
-## 🏗️ Architecture
-
-### Core Components
-
-1. **Smart Contracts** (Solidity)
-   - `RideToken.sol` - Utility token for platform operations
-   - `BikeDAOToken.sol` - Governance token for DAO voting
-   - `BikeNFT.sol` - NFT representation of physical bikes
-   - `BikeSharing.sol` - Main ride management contract
-   - `MaintenanceManager.sol` - Decentralized maintenance system
-   - `BikeDAO.sol` - DAO governance and treasury management
-
-2. **Frontend dApp** (React + Web3)
-   - Wallet integration (MetaMask, WalletConnect)
-   - Interactive map for bike discovery
-   - Ride management interface
-   - Maintenance job marketplace
-   - DAO governance dashboard
-
-3. **Oracle Service** (Node.js)
-   - IoT device communication
-   - Blockchain event listening
-   - Off-chain data management
-   - Real-time location updates
-
-## 📋 Prerequisites
-
-- Node.js 16+ and npm
-- Git
-- MetaMask browser extension
-- MongoDB (for Oracle service)
-- Redis (optional, for caching)
-
-## 🛠️ Installation & Setup
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd web3-bike-sharing
-```
-
-### 2. Install Dependencies
-
-```bash
-# Install root dependencies
-npm run setup
-
-# Or manually install each component
-cd contracts && npm install
-cd ../frontend && npm install
-cd ../backend && npm install
-```
-
-### 3. Environment Configuration
-
-#### Smart Contracts
-```bash
-cd contracts
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-Required variables:
-- `PRIVATE_KEY` - Deployment wallet private key
-- `POLYGON_RPC_URL` - Polygon network RPC endpoint
-- `POLYGONSCAN_API_KEY` - For contract verification
-
-#### Backend Oracle Service
-```bash
-cd backend
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-#### Frontend dApp
-```bash
-cd frontend
-# Create .env file for any frontend-specific variables
-```
-
-### 4. Deploy Smart Contracts
-
-#### Local Development
-```bash
-# Start local Hardhat node
-cd contracts
-npx hardhat node
-
-# In another terminal, deploy contracts
-npx hardhat run scripts/deploy.js --network localhost
-```
-
-#### Polygon Mumbai Testnet
-```bash
-cd contracts
-npx hardhat run scripts/deploy.js --network mumbai
-```
-
-#### Polygon Mainnet
-```bash
-cd contracts
-npx hardhat run scripts/deploy.js --network polygon
-```
-
-### 5. Start the Oracle Service
-
-```bash
-cd backend
-npm run dev
-```
-
-### 6. Start the Frontend
-
-```bash
-cd frontend
-npm start
-```
-
-The dApp will be available at `http://localhost:3000`
-
-## 🔧 Development Workflow
-
-### Smart Contract Development
-
-```bash
-cd contracts
-
-# Compile contracts
-npm run compile
-
-# Run tests
-npm run test
-
-# Deploy locally
-npm run deploy:local
-
-# Verify on Polygonscan
-npm run verify
-```
-
-### Frontend Development
-
-```bash
-cd frontend
-
-# Start development server
-npm start
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-```
-
-### Backend Development
-
-```bash
-cd backend
-
-# Start with auto-reload
-npm run dev
-
-# Run tests
-npm test
-
-# Start production server
-npm start
-```
-
-## 📖 Usage Guide
-
-### For Riders
-
-1. **Connect Wallet**: Use MetaMask or WalletConnect
-2. **Make Deposit**: Deposit RIDE tokens as security
-3. **Find a Bike**: Use the map to locate available bikes
-4. **Start Ride**: Scan QR code or select bike from map
-5. **End Ride**: Lock bike at destination
-6. **Earn Rewards**: Get RIDE tokens for good behavior
-
-### For Maintainers
-
-1. **Browse Jobs**: View available maintenance tasks
-2. **Claim Job**: Stake tokens to claim a maintenance job
-3. **Complete Work**: Perform repairs and submit proof
-4. **Get Paid**: Receive tokens after validation
-
-### For DAO Members
-
-1. **Get Governance Tokens**: Acquire BIKEDAO tokens
-2. **Create Proposals**: Submit governance proposals
-3. **Vote**: Participate in community decisions
-4. **Earn Rewards**: Receive revenue share from platform
-
-## 🧪 Testing
-
-### Smart Contract Tests
-
-```bash
-cd contracts
-npm run test
-
-# With coverage
-npm run coverage
-
-# Gas reporting
-REPORT_GAS=true npm run test
-```
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm test
-
-# Coverage
-npm test -- --coverage
-```
-
-### Backend Tests
-
-```bash
-cd backend
-npm test
-
-# Watch mode
-npm run test:watch
-```
-
-## 🚀 Deployment
-
-### Smart Contracts
-
-1. Configure `.env` with deployment wallet and RPC URLs
-2. Fund deployment wallet with native tokens (ETH/MATIC)
-3. Run deployment script for target network
-4. Verify contracts on block explorer
-5. Update frontend with deployed addresses
-
-### Frontend (Vercel/Netlify)
-
-1. Build the frontend: `npm run build`
-2. Deploy `build` folder to hosting service
-3. Configure environment variables
-4. Set up domain and SSL
-
-### Backend (Railway/Heroku)
-
-1. Configure production environment variables
-2. Set up MongoDB and Redis instances
-3. Deploy using platform-specific methods
-4. Monitor logs and performance
-
-## 🔐 Security Considerations
-
-- **Smart Contracts**: All contracts should be audited before mainnet deployment
-- **Private Keys**: Never commit private keys or seed phrases
-- **Oracle Security**: Use secure communication channels for IoT devices
-- **Rate Limiting**: Implement API rate limiting in production
-- **Access Control**: Proper role-based access control throughout
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-**Contract deployment fails**
-- Check wallet has sufficient balance for gas
-- Verify RPC URL is correct and accessible
-- Ensure private key is valid
-
-**Frontend can't connect to contracts**
-- Verify contract addresses in frontend config
-- Check network configuration matches deployment
-- Ensure MetaMask is on correct network
-
-**Oracle service errors**
-- Check database connectivity
-- Verify blockchain RPC connection
-- Ensure environment variables are set
-
-### Getting Help
-
-- Check existing [Issues](link-to-issues)
-- Join our [Discord](link-to-discord)
-- Read the [Documentation](link-to-docs)
-
-## 🔗 Links
-
-- **Website**: [bikedao.org](https://bikedao.org)
-- **Docs**: [docs.bikedao.org](https://docs.bikedao.org)
-- **Twitter**: [@BikeDAO](https://twitter.com/BikeDAO)
-- **Discord**: [BikeDAO Community](https://discord.gg/bikedao)
-
-## 📊 Project Status
-
-- ✅ Smart Contract Development
-- ✅ Frontend dApp
-- ✅ Oracle Service
-- ✅ Local Testing Environment
-- 🔄 Testnet Deployment
-- ⏳ Security Audit
-- ⏳ Mainnet Launch
+**BikeSharing System** is a decentralized community-owned bike sharing platform built on the Stacks blockchain. The system enables users to rent and return bikes with integrated maintenance tracking, usage incentives, and transparent operations. Users can rent bikes by providing a deposit, track rental duration, and report maintenance issues when returning bikes.
 
 ---
 
-Built with ❤️ by the BikeDAO community
+## Tech Stack Used
+
+- **Blockchain**: Stacks (STX)
+- **Smart Contract Language**: Clarity
+- **Development Framework**: Clarinet
+- **Testing Framework**: Clarinet Test Suite
+- **Deployment Tools**: Stacks CLI, Clarinet CLI
+- **Programming Language**: TypeScript (for tests)
+- **Package Manager**: npm
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v16 or higher)
+- Git
+- Basic command line knowledge
+
+### Step 1: Install Required Tools
+
+#### Install Clarinet CLI
+```bash
+# For macOS/Linux
+curl -L https://github.com/hirosystems/clarinet/releases/latest/download/clarinet-install.sh | bash
+
+# For Windows (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/hirosystems/clarinet/releases/latest/download/clarinet-install.exe" -OutFile "clarinet-install.exe"
+./clarinet-install.exe
+
+# Verify installation
+clarinet --version
+```
+
+#### Install Stacks CLI
+```bash
+# For macOS/Linux
+curl -L https://github.com/hirosystems/stacks.js/releases/latest/download/stacks-cli-install.sh | bash
+
+# For Windows (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/hirosystems/stacks.js/releases/latest/download/stacks-cli-install.exe" -OutFile "stacks-cli-install.exe"
+./stacks-cli-install.exe
+
+# Verify installation
+stacks --version
+```
+
+### Step 2: Clone and Setup Project
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd bike-sharing-system
+
+# Install dependencies
+npm install
+
+# Check project configuration
+clarinet check
+```
+
+### Step 3: Start Local Development
+```bash
+# Start local Clarinet environment
+clarinet dev
+
+# Keep this running in a separate terminal
+```
+
+### Step 4: Test Locally
+```bash
+# In a new terminal, run tests
+npm test
+
+# Test contract functions
+clarinet contract call bike-sharing-system initialize --args u10
+clarinet contract call bike-sharing-system get-contract-stats
+```
+
+---
+
+## Smart Contract Address (Deployed on Testnet/Mainnet)
+
+### Testnet Deployment
+- **Contract Address**: `ST1PQHQKV0RJXZFYVWE6CHS7RT4WXZV80C6QWTWXY.bike-sharing-system`
+- **Network**: Stacks Testnet
+- **Status**: Ready for deployment
+- **Explorer**: [Testnet Explorer](https://explorer.hiro.so/sandbox)
+
+### Mainnet Deployment
+- **Contract Address**: `[To be deployed]`
+- **Network**: Stacks Mainnet
+- **Status**: Pending
+- **Explorer**: [Mainnet Explorer](https://explorer.hiro.so)
+
+### Deployment Commands
+```bash
+# Deploy to testnet
+npm run deploy:testnet
+
+# Deploy to mainnet
+npm run deploy:mainnet
+
+# Initialize contract (after deployment)
+npm run init:testnet
+npm run init:mainnet
+```
+
+---
+
+## How to Use the Project
+
+### 1. Local Development
+
+#### Start Local Environment
+```bash
+# Start local blockchain
+clarinet dev
+```
+
+#### Test Contract Functions
+```bash
+# Initialize with 10 bikes
+clarinet contract call bike-sharing-system initialize --args u10
+
+# Check contract statistics
+clarinet contract call bike-sharing-system get-contract-stats
+
+# Rent bike ID 1 with 1000 microSTX deposit
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000
+
+# Return bike ID 1
+clarinet contract call bike-sharing-system return-bike --args u1
+```
+
+### 2. Testnet Usage
+
+#### Deploy to Testnet
+```bash
+# Deploy contract
+clarinet contract publish bike-sharing-system --network testnet
+
+# Initialize contract
+clarinet contract call bike-sharing-system initialize --args u10 --network testnet
+```
+
+#### Interact on Testnet
+```bash
+# Check contract stats
+clarinet contract call bike-sharing-system get-contract-stats --network testnet
+
+# Rent a bike
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000 --network testnet
+
+# Return a bike
+clarinet contract call bike-sharing-system return-bike --args u1 --network testnet
+```
+
+### 3. Mainnet Usage
+
+#### Deploy to Mainnet
+```bash
+# Deploy contract
+clarinet contract publish bike-sharing-system --network mainnet
+
+# Initialize contract
+clarinet contract call bike-sharing-system initialize --args u10 --network mainnet
+```
+
+#### Interact on Mainnet
+```bash
+# Check contract stats
+clarinet contract call bike-sharing-system get-contract-stats --network mainnet
+
+# Rent a bike
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000 --network mainnet
+
+# Return a bike
+clarinet contract call bike-sharing-system return-bike --args u1 --network mainnet
+```
+
+### 4. Available Functions
+
+#### Write Functions (Cost STX)
+- **`initialize(initial-bike-count: uint)`** - Initialize contract with bikes
+- **`rent-bike(bike-id: uint, deposit-amount: uint)`** - Rent a bike
+- **`return-bike(bike-id: uint, maintenance-notes: optional<string-ascii 100>)`** - Return a bike
+
+#### Read Functions (Free)
+- **`get-contract-stats()`** - Get contract statistics
+- **`get-bike-status(bike-id: uint)`** - Get bike status
+- **`get-user-rentals(user: principal)`** - Get user's rented bikes
+- **`get-user-deposit(user: principal)`** - Get user's deposit
+- **`get-bike-maintenance-history(bike-id: uint)`** - Get bike maintenance history
+
+### 5. Example Workflow
+
+#### Complete Bike Rental Cycle
+```bash
+# 1. Initialize contract with 5 bikes
+clarinet contract call bike-sharing-system initialize --args u5
+
+# 2. Check initial state
+clarinet contract call bike-sharing-system get-contract-stats
+
+# 3. Rent bike ID 1
+clarinet contract call bike-sharing-system rent-bike --args u1 u1000
+
+# 4. Check bike status
+clarinet contract call bike-sharing-system get-bike-status --args u1
+
+# 5. Return bike with maintenance note
+clarinet contract call bike-sharing-system return-bike --args u1 --args "Brake needs adjustment"
+
+# 6. Check final state
+clarinet contract call bike-sharing-system get-contract-stats
+```
+
+### 6. Testing
+
+#### Run All Tests
+```bash
+npm test
+```
+
+#### Run Specific Tests
+```bash
+clarinet test --filter "BikeSharing System - Basic Functionality"
+```
+
+#### Check Contract Syntax
+```bash
+clarinet check
+```
+
+---
+
+## Project Structure
+```
+bike-sharing-system/
+├── contracts/
+│   └── bike-sharing-system.clar    # Main contract file
+├── tests/
+│   └── bike-sharing-system_test.ts # Contract tests
+├── scripts/
+│   └── deploy.js                   # Deployment script
+├── Clarinet.toml                   # Clarinet configuration
+├── package.json                     # Node.js dependencies
+└── README.md                       # This file
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### "Clarinet command not found"
+```bash
+# Restart terminal or source profile
+source ~/.bashrc
+# or
+source ~/.zshrc
+```
+
+#### "Contract not found"
+```bash
+# Check contract path in Clarinet.toml
+cat Clarinet.toml
+```
+
+#### "Network error"
+```bash
+# Check network configuration
+clarinet check
+```
+
+#### "Insufficient balance"
+```bash
+# For testnet: Get STX from faucet
+# For mainnet: Ensure you have real STX
+```
+
+---
+
+## Resources
+
+- [Clarinet Documentation](https://docs.hiro.so/clarinet/)
+- [Stacks Documentation](https://docs.stacks.co/)
+- [Clarity Language Reference](https://docs.stacks.co/write-smart-contracts/overview)
+- [Stacks Explorer](https://explorer.hiro.so/)
+
+---
+
+## License
+
+This project is licensed under the MIT License.

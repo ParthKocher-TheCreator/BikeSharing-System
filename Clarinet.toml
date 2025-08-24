@@ -1,0 +1,38 @@
+[project]
+name = "bike-sharing-system"
+description = "Community-owned bike sharing system with maintenance tracking and usage incentives"
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+
+[contracts.bike-sharing-system]
+path = "contracts/bike-sharing-system.clar"
+
+[networks.testnet]
+name = "testnet"
+deployment = "ST1PQHQKV0RJXZFYVWE6CHS7RT4WXZV80C6QWTWXY"
+
+[networks.mainnet]
+name = "mainnet"
+deployment = "ST1PQHQKV0RJXZFYVWE6CHS7RT4WXZV80C6QWTWXY"
+
+[devnet]
+disable_stacks_exit_on_panic = false
+disable_stacks_exit_on_abort = false
+disable_historical_lookup = false
+disable_stacks_logs = false
+mstx_balance = 100000000000000
+miner_mstx_balance = 100000000000000
+log_level = "warn"
+seed = "random_seed_for_devnet"
+accounts = [
+  "ST1PQHQKV0RJXZFYVWE6CHS7RT4WXZV80C6QWTWXY",
+  "ST1SJ3DTE5DN7X54YDH5K64AKJRBDBSG6J6K3G0TVX",
+  "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+  "ST2JHG361ZXG51QTKY2NQDXB7Q8Q2F4G9G51K16CR",
+  "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+  "ST2REHHS5J3CERCRBEPMGH6001QGKTDW7BGBTHG00",
+  "ST3AM1AWWAK1W3KAG2WF73AMVDJWVXNBKKE4G9DW",
+  "ST3PF13W7Z0RRM42A8VZRVGQ75WKQDHK80E2BMMA3",
+  "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21ACCP",
+  "STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6"
+]
